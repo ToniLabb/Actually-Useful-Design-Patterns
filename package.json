@@ -1,0 +1,37 @@
+{
+  "name": "actually-useful-design-patterns",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "demo:abstract-factory": "ts-node src/patterns/creational/abstract-factory/index.ts",
+    "demo:builder": "ts-node src/patterns/creational/builder/index.ts",
+    "demo:factory-method": "ts-node src/patterns/creational/factory-method/index.ts",
+    "demo:prototype": "ts-node src/patterns/creational/prototype/index.ts",
+    "demo:singleton": "ts-node src/patterns/creational/singleton/index.ts",
+    "demo:adapter": "ts-node src/patterns/structural/adapter/index.ts",
+    "demo:bridge": "ts-node src/patterns/structural/bridge/index.ts",
+    "demo:composite": "ts-node src/patterns/structural/composite/index.ts",
+    "demo:decorator": "ts-node src/patterns/structural/decorator/index.ts",
+    "demo:facade": "ts-node src/patterns/structural/facade/index.ts",
+    "demo:flyweight": "ts-node src/patterns/structural/flyweight/index.ts",
+    "demo:proxy": "ts-node src/patterns/structural/proxy/index.ts",
+    "demo:chain-of-responsibility": "ts-node src/patterns/behavioral/chain-of-responsibility/index.ts",
+    "demo:command": "ts-node src/patterns/behavioral/command/index.ts",
+    "demo:interpreter": "ts-node src/patterns/behavioral/interpreter/index.ts",
+    "demo:iterator": "ts-node src/patterns/behavioral/iterator/index.ts",
+    "demo:mediator": "ts-node src/patterns/behavioral/mediator/index.ts",
+    "demo:memento": "ts-node src/patterns/behavioral/memento/index.ts",
+    "demo:observer": "ts-node src/patterns/behavioral/observer/index.ts",
+    "demo:state": "ts-node src/patterns/behavioral/state/index.ts",
+    "demo:strategy": "ts-node src/patterns/behavioral/strategy/index.ts",
+    "demo:template-method": "ts-node src/patterns/behavioral/template-method/index.ts",
+    "demo:visitor": "ts-node src/patterns/behavioral/visitor/index.ts",
+    "demo": "ts-node src/scripts/runDemo.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

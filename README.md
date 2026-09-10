@@ -117,8 +117,4 @@ Every pattern folder contains:
 - `index.ts`: executable TypeScript demo.
 - `README.md`: explanation, UML-style sketch, practical example, usefulness notes, and trade-offs.
 
-## Repository Metadata
 
-Suggested GitHub description:
-
-> The 23 GoF Design Patterns explained with actually useful TypeScript examples.

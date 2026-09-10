@@ -1,1 +1,38 @@
-# Chain of Responsibility\n\n> Practical example: HTTP Middleware Pipeline\n\n## Problem\n\nRequests pass through logging, authentication, content validation, and routing. Any step may return a response immediately.\n\n## Naive Solution\n\nBuild one large request function with nested conditions for every cross-cutting concern.\n\n## Pattern\n\nChain of Responsibility separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\nEach `Middleware` handles one concern and delegates with `super.handle()`. `linkWith()` assembles the pipeline and short-circuits on errors.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- chain-of-responsibility\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nProcessing consists of ordered, replaceable steps where a handler may stop propagation.\n\n## When Not To Use It\n\nEvery request must follow one short fixed procedure whose control flow is clearer inline.\n\n## Trade-Offs\n\nMiddleware stays focused and reusable, but ordering dependencies and hidden short-circuits require tests.\n
+# Chain of Responsibility
+
+> Practical example: HTTP Middleware Pipeline
+
+## Problem
+
+Requests pass through logging, authentication, content validation, and routing. Any step may return a response immediately.
+
+## Naive Solution
+
+Build one large request function with nested conditions for every cross-cutting concern.
+
+## Pattern
+
+Chain of Responsibility separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+Each `Middleware` handles one concern and delegates with `super.handle()`. `linkWith()` assembles the pipeline and short-circuits on errors.
+
+Run it with:
+
+```bash
+npm run demo -- chain-of-responsibility
+```
+
+## When It Is Useful
+
+Processing consists of ordered, replaceable steps where a handler may stop propagation.
+
+## When Not To Use It
+
+Every request must follow one short fixed procedure whose control flow is clearer inline.
+
+## Trade-Offs
+
+Middleware stays focused and reusable, but ordering dependencies and hidden short-circuits require tests.
+

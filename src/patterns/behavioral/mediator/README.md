@@ -1,1 +1,38 @@
-# Mediator\n\n> Practical example: Checkout Form Orchestration\n\n## Problem\n\nChanging a shipping address affects shipping options, payment methods, and totals. Direct component references create a dependency web.\n\n## Naive Solution\n\nLet every form component know and call every component affected by its changes.\n\n## Pattern\n\nMediator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`CheckoutCoordinator` receives component events and coordinates updates; components depend only on the mediator contract.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- mediator\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nMany peer components interact and their coordination rules belong in one place.\n\n## When Not To Use It\n\nOnly two components communicate or the mediator starts absorbing their core business logic.\n\n## Trade-Offs\n\nComponents remain independent, but the mediator can become complex if its scope is not bounded.\n
+# Mediator
+
+> Practical example: Checkout Form Orchestration
+
+## Problem
+
+Changing a shipping address affects shipping options, payment methods, and totals. Direct component references create a dependency web.
+
+## Naive Solution
+
+Let every form component know and call every component affected by its changes.
+
+## Pattern
+
+Mediator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`CheckoutCoordinator` receives component events and coordinates updates; components depend only on the mediator contract.
+
+Run it with:
+
+```bash
+npm run demo -- mediator
+```
+
+## When It Is Useful
+
+Many peer components interact and their coordination rules belong in one place.
+
+## When Not To Use It
+
+Only two components communicate or the mediator starts absorbing their core business logic.
+
+## Trade-Offs
+
+Components remain independent, but the mediator can become complex if its scope is not bounded.
+

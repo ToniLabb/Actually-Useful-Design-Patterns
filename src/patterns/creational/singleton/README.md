@@ -1,1 +1,38 @@
-# Singleton\n\n> Practical example: Application Configuration\n\n## Problem\n\nConfiguration should be parsed and validated once, then shared consistently across application services.\n\n## Naive Solution\n\nRead `process.env` in every module, repeat parsing, and allow different defaults in different places.\n\n## Pattern\n\nSingleton separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`AppConfig.load()` creates one validated instance. Subsequent callers receive the same object; `resetForTests()` keeps tests isolated.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- singleton\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nExactly one process-wide instance is an invariant, such as boot-time configuration.\n\n## When Not To Use It\n\nThe value should vary by request or test, or dependency injection can own its lifetime more transparently.\n\n## Trade-Offs\n\nAccess is convenient and consistent, but global lifetime can hide dependencies and complicate test isolation.\n
+# Singleton
+
+> Practical example: Application Configuration
+
+## Problem
+
+Configuration should be parsed and validated once, then shared consistently across application services.
+
+## Naive Solution
+
+Read `process.env` in every module, repeat parsing, and allow different defaults in different places.
+
+## Pattern
+
+Singleton separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`AppConfig.load()` creates one validated instance. Subsequent callers receive the same object; `resetForTests()` keeps tests isolated.
+
+Run it with:
+
+```bash
+npm run demo -- singleton
+```
+
+## When It Is Useful
+
+Exactly one process-wide instance is an invariant, such as boot-time configuration.
+
+## When Not To Use It
+
+The value should vary by request or test, or dependency injection can own its lifetime more transparently.
+
+## Trade-Offs
+
+Access is convenient and consistent, but global lifetime can hide dependencies and complicate test isolation.
+

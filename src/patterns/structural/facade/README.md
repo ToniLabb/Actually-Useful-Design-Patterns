@@ -1,1 +1,38 @@
-# Facade\n\n> Practical example: Checkout Service\n\n## Problem\n\nCheckout coordinates inventory, payment, order persistence, and notification, including releasing stock after a failed payment.\n\n## Naive Solution\n\nMake controllers and consumers call every subsystem in the right order and reproduce compensation logic.\n\n## Pattern\n\nFacade separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`CheckoutFacade.checkout()` presents one use-case API and orchestrates the subsystem services behind it.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- facade\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nA recurring workflow spans several subsystems and needs a stable transactional boundary.\n\n## When Not To Use It\n\nThe facade only renames one call or is becoming an unrelated collection of application behavior.\n\n## Trade-Offs\n\nConsumers get a simple API and consistent orchestration, but the facade must stay focused to avoid becoming a god object.\n
+# Facade
+
+> Practical example: Checkout Service
+
+## Problem
+
+Checkout coordinates inventory, payment, order persistence, and notification, including releasing stock after a failed payment.
+
+## Naive Solution
+
+Make controllers and consumers call every subsystem in the right order and reproduce compensation logic.
+
+## Pattern
+
+Facade separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`CheckoutFacade.checkout()` presents one use-case API and orchestrates the subsystem services behind it.
+
+Run it with:
+
+```bash
+npm run demo -- facade
+```
+
+## When It Is Useful
+
+A recurring workflow spans several subsystems and needs a stable transactional boundary.
+
+## When Not To Use It
+
+The facade only renames one call or is becoming an unrelated collection of application behavior.
+
+## Trade-Offs
+
+Consumers get a simple API and consistent orchestration, but the facade must stay focused to avoid becoming a god object.
+

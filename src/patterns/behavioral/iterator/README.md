@@ -1,1 +1,38 @@
-# Iterator\n\n> Practical example: Paginated API Results\n\n## Problem\n\nConsumers want to process all products without manually managing cursors and page boundaries.\n\n## Naive Solution\n\nRepeat a fetch-loop with cursor state in every consumer.\n\n## Pattern\n\nIterator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`PaginatedApiCollection` implements `Iterable<T>` and its generator fetches pages lazily while exposing individual items.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- iterator\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nTraversal mechanics are non-trivial and clients should see a normal sequence.\n\n## When Not To Use It\n\nCallers need page metadata, parallel requests, or explicit pagination controls.\n\n## Trade-Offs\n\nConsumers become simple and pages load lazily, but iteration can hide network cost and failures.\n
+# Iterator
+
+> Practical example: Paginated API Results
+
+## Problem
+
+Consumers want to process all products without manually managing cursors and page boundaries.
+
+## Naive Solution
+
+Repeat a fetch-loop with cursor state in every consumer.
+
+## Pattern
+
+Iterator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`PaginatedApiCollection` implements `Iterable<T>` and its generator fetches pages lazily while exposing individual items.
+
+Run it with:
+
+```bash
+npm run demo -- iterator
+```
+
+## When It Is Useful
+
+Traversal mechanics are non-trivial and clients should see a normal sequence.
+
+## When Not To Use It
+
+Callers need page metadata, parallel requests, or explicit pagination controls.
+
+## Trade-Offs
+
+Consumers become simple and pages load lazily, but iteration can hide network cost and failures.
+

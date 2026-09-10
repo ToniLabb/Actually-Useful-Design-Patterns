@@ -1,1 +1,38 @@
-# Memento\n\n> Practical example: Draft Version History\n\n## Problem\n\nA content editor must save and restore versions without exposing how its internal draft state is represented.\n\n## Naive Solution\n\nLet the history service reach into editor fields or manually copy partial state.\n\n## Pattern\n\nMemento separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`DraftEditor.save()` creates an immutable `DraftSnapshot`; `VersionHistory` stores snapshots and the editor restores a selected one.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- memento\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nUsers need undo, checkpoints, drafts, or version restoration of encapsulated state.\n\n## When Not To Use It\n\nState is huge, changes very frequently, or domain events/diffs are a better persistence model.\n\n## Trade-Offs\n\nRestoration is straightforward and encapsulated, but full snapshots consume memory and may hold sensitive data.\n
+# Memento
+
+> Practical example: Draft Version History
+
+## Problem
+
+A content editor must save and restore versions without exposing how its internal draft state is represented.
+
+## Naive Solution
+
+Let the history service reach into editor fields or manually copy partial state.
+
+## Pattern
+
+Memento separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`DraftEditor.save()` creates an immutable `DraftSnapshot`; `VersionHistory` stores snapshots and the editor restores a selected one.
+
+Run it with:
+
+```bash
+npm run demo -- memento
+```
+
+## When It Is Useful
+
+Users need undo, checkpoints, drafts, or version restoration of encapsulated state.
+
+## When Not To Use It
+
+State is huge, changes very frequently, or domain events/diffs are a better persistence model.
+
+## Trade-Offs
+
+Restoration is straightforward and encapsulated, but full snapshots consume memory and may hold sensitive data.
+

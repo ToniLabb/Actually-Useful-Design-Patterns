@@ -1,1 +1,38 @@
-# Strategy\n\n> Practical example: Pricing and Discount Engine\n\n## Problem\n\nPricing began as base price times quantity, then VIP, Black Friday, coupons, and subscriptions added competing branches.\n\n## Naive Solution\n\nGrow one pricing function with an `if/else` for every campaign and customer segment.\n\n## Pattern\n\nStrategy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\nEach `PricingStrategy` owns one algorithm. `PricingEngine` validates shared input and switches strategy at runtime.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- strategy\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nAlgorithms vary independently and are selected by campaign, tenant, customer, or runtime configuration.\n\n## When Not To Use It\n\nThere are only one or two tiny branches or a callback is sufficient.\n\n## Trade-Offs\n\nPricing rules are isolated and testable, but selection and compatibility between strategies remain client responsibilities.\n
+# Strategy
+
+> Practical example: Pricing and Discount Engine
+
+## Problem
+
+Pricing began as base price times quantity, then VIP, Black Friday, coupons, and subscriptions added competing branches.
+
+## Naive Solution
+
+Grow one pricing function with an `if/else` for every campaign and customer segment.
+
+## Pattern
+
+Strategy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+Each `PricingStrategy` owns one algorithm. `PricingEngine` validates shared input and switches strategy at runtime.
+
+Run it with:
+
+```bash
+npm run demo -- strategy
+```
+
+## When It Is Useful
+
+Algorithms vary independently and are selected by campaign, tenant, customer, or runtime configuration.
+
+## When Not To Use It
+
+There are only one or two tiny branches or a callback is sufficient.
+
+## Trade-Offs
+
+Pricing rules are isolated and testable, but selection and compatibility between strategies remain client responsibilities.
+

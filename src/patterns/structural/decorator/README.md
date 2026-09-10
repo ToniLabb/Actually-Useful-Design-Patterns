@@ -1,1 +1,38 @@
-# Decorator\n\n> Practical example: HTTP Client Middleware\n\n## Problem\n\nAn HTTP client needs caching and logging today, with retry, metrics, or auth likely later. Different callers need different combinations.\n\n## Naive Solution\n\nAdd every feature to the base client or create subclasses for all feature combinations.\n\n## Pattern\n\nDecorator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\nEach `HttpClientDecorator` preserves the `HttpClient` contract. Caching and logging wrappers can be stacked around `ApiHttpClient` at runtime.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- decorator\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nCross-cutting features must be optional, composable, and ordered per client instance.\n\n## When Not To Use It\n\nA single fixed behavior belongs directly in the client or a configuration flag is clearer.\n\n## Trade-Offs\n\nFeatures compose without subclass explosion, but wrapper order matters and debugging crosses multiple objects.\n
+# Decorator
+
+> Practical example: HTTP Client Middleware
+
+## Problem
+
+An HTTP client needs caching and logging today, with retry, metrics, or auth likely later. Different callers need different combinations.
+
+## Naive Solution
+
+Add every feature to the base client or create subclasses for all feature combinations.
+
+## Pattern
+
+Decorator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+Each `HttpClientDecorator` preserves the `HttpClient` contract. Caching and logging wrappers can be stacked around `ApiHttpClient` at runtime.
+
+Run it with:
+
+```bash
+npm run demo -- decorator
+```
+
+## When It Is Useful
+
+Cross-cutting features must be optional, composable, and ordered per client instance.
+
+## When Not To Use It
+
+A single fixed behavior belongs directly in the client or a configuration flag is clearer.
+
+## Trade-Offs
+
+Features compose without subclass explosion, but wrapper order matters and debugging crosses multiple objects.
+

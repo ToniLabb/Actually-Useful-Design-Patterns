@@ -1,1 +1,38 @@
-# Visitor\n\n> Practical example: Document AST Processing\n\n## Problem\n\nThe same document tree needs HTML rendering, validation, word counts, and future exports without filling nodes with unrelated operations.\n\n## Naive Solution\n\nAdd every operation as methods on every AST node or use repeated type checks outside the tree.\n\n## Pattern\n\nVisitor separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\nEach node dispatches through `accept()`. Visitors implement one operation across heading, paragraph, and link node types.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- visitor\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nThe element structure is stable while new operations are added frequently.\n\n## When Not To Use It\n\nNew node types are added more often than operations, because every visitor then needs modification.\n\n## Trade-Offs\n\nOperations stay grouped and double dispatch preserves node types, but adding an element is deliberately expensive.\n
+# Visitor
+
+> Practical example: Document AST Processing
+
+## Problem
+
+The same document tree needs HTML rendering, validation, word counts, and future exports without filling nodes with unrelated operations.
+
+## Naive Solution
+
+Add every operation as methods on every AST node or use repeated type checks outside the tree.
+
+## Pattern
+
+Visitor separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+Each node dispatches through `accept()`. Visitors implement one operation across heading, paragraph, and link node types.
+
+Run it with:
+
+```bash
+npm run demo -- visitor
+```
+
+## When It Is Useful
+
+The element structure is stable while new operations are added frequently.
+
+## When Not To Use It
+
+New node types are added more often than operations, because every visitor then needs modification.
+
+## Trade-Offs
+
+Operations stay grouped and double dispatch preserves node types, but adding an element is deliberately expensive.
+

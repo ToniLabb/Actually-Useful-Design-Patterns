@@ -1,1 +1,38 @@
-# Proxy\n\n> Practical example: API Rate Limiting\n\n## Problem\n\nAn API service must reject clients that exceed a request quota without putting policy code in the real service.\n\n## Naive Solution\n\nRepeat counters and access checks in every endpoint or modify the service for infrastructure concerns.\n\n## Pattern\n\nProxy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`RateLimitingProxy` implements the same `ApiService` contract, tracks a window per client, and delegates allowed requests to `RealApiService`.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- proxy\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nAccess to a service needs rate limits, authorization, caching, lazy initialization, or remote-call handling.\n\n## When Not To Use It\n\nThe wrapper merely forwards calls or infrastructure already enforces the policy adequately.\n\n## Trade-Offs\n\nThe real service stays focused, but proxy state and semantics must match deployment topology.\n
+# Proxy
+
+> Practical example: API Rate Limiting
+
+## Problem
+
+An API service must reject clients that exceed a request quota without putting policy code in the real service.
+
+## Naive Solution
+
+Repeat counters and access checks in every endpoint or modify the service for infrastructure concerns.
+
+## Pattern
+
+Proxy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`RateLimitingProxy` implements the same `ApiService` contract, tracks a window per client, and delegates allowed requests to `RealApiService`.
+
+Run it with:
+
+```bash
+npm run demo -- proxy
+```
+
+## When It Is Useful
+
+Access to a service needs rate limits, authorization, caching, lazy initialization, or remote-call handling.
+
+## When Not To Use It
+
+The wrapper merely forwards calls or infrastructure already enforces the policy adequately.
+
+## Trade-Offs
+
+The real service stays focused, but proxy state and semantics must match deployment topology.
+

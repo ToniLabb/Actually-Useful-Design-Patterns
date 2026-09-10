@@ -1,1 +1,38 @@
-# Composite\n\n> Practical example: File and Folder Permissions\n\n## Problem\n\nPermissions must apply to a file or recursively to an entire folder tree through one API.\n\n## Naive Solution\n\nWrite separate code paths for files and folders, manually walking children in every operation.\n\n## Pattern\n\nComposite separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.\n\n## TypeScript Implementation\n\n`Resource` defines uniform permission operations. `FileResource` is a leaf and `FolderResource` forwards grants and revocations recursively.\n\nRun it with:\n\n\u0060\u0060\u0060bash\nnpm run demo -- composite\n\u0060\u0060\u0060\n\n## When It Is Useful\n\nClients should treat individual objects and nested groups uniformly.\n\n## When Not To Use It\n\nLeaf and container behavior differs substantially or recursive propagation is unsafe.\n\n## Trade-Offs\n\nTree-wide operations become simple, but implicit recursion can be expensive and permission inheritance needs clear rules.\n
+# Composite
+
+> Practical example: File and Folder Permissions
+
+## Problem
+
+Permissions must apply to a file or recursively to an entire folder tree through one API.
+
+## Naive Solution
+
+Write separate code paths for files and folders, manually walking children in every operation.
+
+## Pattern
+
+Composite separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
+
+## TypeScript Implementation
+
+`Resource` defines uniform permission operations. `FileResource` is a leaf and `FolderResource` forwards grants and revocations recursively.
+
+Run it with:
+
+```bash
+npm run demo -- composite
+```
+
+## When It Is Useful
+
+Clients should treat individual objects and nested groups uniformly.
+
+## When Not To Use It
+
+Leaf and container behavior differs substantially or recursive propagation is unsafe.
+
+## Trade-Offs
+
+Tree-wide operations become simple, but implicit recursion can be expensive and permission inheritance needs clear rules.
+

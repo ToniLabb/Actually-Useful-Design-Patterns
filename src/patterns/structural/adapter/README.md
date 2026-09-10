@@ -14,6 +14,21 @@ Teach the billing service every SDK and branch on the selected vendor during eac
 
 Adapter separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class PaymentGateway {
+        <<interface>>
+        +charge(payment) PaymentResult
+    }
+    BillingService --> PaymentGateway
+    PaymentGateway <|.. StripeAdapter
+    PaymentGateway <|.. PayPalAdapter
+    StripeAdapter --> StripeSdk : adapts
+    PayPalAdapter --> PayPalSdk : adapts
+```
+
 ## TypeScript Implementation
 
 `StripeAdapter` and `PayPalAdapter` translate the common `PaymentGateway` contract to each SDK and normalize their responses.
@@ -35,4 +50,3 @@ You own both APIs and can establish one contract directly.
 ## Trade-Offs
 
 Vendor churn stays at the boundary, but adapters must preserve meaningful provider differences and errors.
-

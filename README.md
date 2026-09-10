@@ -52,28 +52,18 @@ The goal is not to prove that every pattern should be used everywhere. The goal 
 | Template Method | Data import pipeline |
 | Visitor | Document AST processing |
 
-## Recommended Pattern README Structure
+## Pattern README Structure
 
 Each pattern README should answer these questions:
 
 1. Problem
 2. Naive solution
 3. Pattern
-4. TypeScript implementation
-5. When it is useful
-6. When not to use it
-7. Trade-offs
-
-The current examples are intentionally small and runnable. A richer version of each pattern can grow into this structure:
-
-```text
-/strategy
-  README.md
-  naive.ts
-  strategy.ts
-  example.ts
-  strategy.test.ts
-```
+4. Structure diagram
+5. TypeScript implementation
+6. When it is useful
+7. When not to use it
+8. Trade-offs
 
 ## Quick Start
 
@@ -108,13 +98,20 @@ src/
     runDemo.ts
   patterns/
     creational/
+      <pattern-name>/
+        index.ts
+        README.md
     structural/
+      <pattern-name>/
+        index.ts
+        README.md
     behavioral/
+      <pattern-name>/
+        index.ts
+        README.md
 ```
 
 Every pattern folder contains:
 
 - `index.ts`: executable TypeScript demo.
-- `README.md`: explanation, UML-style sketch, practical example, usefulness notes, and trade-offs.
-
-
+- `README.md`: problem, naive solution, Mermaid UML diagram, implementation notes, appropriate uses, misuse cases, and trade-offs.

@@ -14,6 +14,24 @@ Read `process.env` in every module, repeat parsing, and allow different defaults
 
 Singleton separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class AppConfig {
+        -instance AppConfig$
+        -AppConfig()
+        +load(environment) AppConfig$
+        +resetForTests()$
+        +environment
+        +port
+        +databaseUrl
+    }
+    Application ..> AppConfig : load
+    ServiceA ..> AppConfig : same instance
+    ServiceB ..> AppConfig : same instance
+```
+
 ## TypeScript Implementation
 
 `AppConfig.load()` creates one validated instance. Subsequent callers receive the same object; `resetForTests()` keeps tests isolated.
@@ -35,4 +53,3 @@ The value should vary by request or test, or dependency injection can own its li
 ## Trade-Offs
 
 Access is convenient and consistent, but global lifetime can hide dependencies and complicate test isolation.
-

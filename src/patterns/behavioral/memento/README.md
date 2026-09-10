@@ -14,6 +14,22 @@ Let the history service reach into editor fields or manually copy partial state.
 
 Memento separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    DraftEditor ..> DraftSnapshot : creates
+    DraftEditor ..> DraftSnapshot : restores
+    VersionHistory o-- DraftSnapshot : stores
+    Client --> VersionHistory
+    Client --> DraftEditor
+    class DraftSnapshot {
+        +title
+        +content
+        +savedAt
+    }
+```
+
 ## TypeScript Implementation
 
 `DraftEditor.save()` creates an immutable `DraftSnapshot`; `VersionHistory` stores snapshots and the editor restores a selected one.
@@ -35,4 +51,3 @@ State is huge, changes very frequently, or domain events/diffs are a better pers
 ## Trade-Offs
 
 Restoration is straightforward and encapsulated, but full snapshots consume memory and may hold sensitive data.
-

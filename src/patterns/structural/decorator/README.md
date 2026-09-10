@@ -14,6 +14,22 @@ Add every feature to the base client or create subclasses for all feature combin
 
 Decorator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class HttpClient {
+        <<interface>>
+        +get(url) HttpResponse
+    }
+    HttpClient <|.. ApiHttpClient
+    HttpClient <|.. HttpClientDecorator
+    HttpClientDecorator o-- HttpClient : wraps
+    HttpClientDecorator <|-- CachingHttpClient
+    HttpClientDecorator <|-- LoggingHttpClient
+    Client --> HttpClient
+```
+
 ## TypeScript Implementation
 
 Each `HttpClientDecorator` preserves the `HttpClient` contract. Caching and logging wrappers can be stacked around `ApiHttpClient` at runtime.
@@ -35,4 +51,3 @@ A single fixed behavior belongs directly in the client or a configuration flag i
 ## Trade-Offs
 
 Features compose without subclass explosion, but wrapper order matters and debugging crosses multiple objects.
-

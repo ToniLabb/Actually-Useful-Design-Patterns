@@ -14,6 +14,28 @@ Add every operation as methods on every AST node or use repeated type checks out
 
 Visitor separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class DocumentNode {
+        <<interface>>
+        +accept(visitor)
+    }
+    DocumentNode <|.. HeadingNode
+    DocumentNode <|.. ParagraphNode
+    DocumentNode <|.. LinkNode
+    class DocumentVisitor {
+        <<interface>>
+        +visitHeading(node)
+        +visitParagraph(node)
+        +visitLink(node)
+    }
+    DocumentVisitor <|.. HtmlVisitor
+    DocumentVisitor <|.. WordCountVisitor
+    DocumentNode ..> DocumentVisitor : double dispatch
+```
+
 ## TypeScript Implementation
 
 Each node dispatches through `accept()`. Visitors implement one operation across heading, paragraph, and link node types.
@@ -35,4 +57,3 @@ New node types are added more often than operations, because every visitor then 
 ## Trade-Offs
 
 Operations stay grouped and double dispatch preserves node types, but adding an element is deliberately expensive.
-

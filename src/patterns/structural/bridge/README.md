@@ -14,6 +14,27 @@ Create classes such as `EmailOrderNotification`, `SmsOrderNotification`, and eve
 
 Bridge separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class DeliveryChannel {
+        <<interface>>
+        +send(recipient, subject, body)
+    }
+    class Notification {
+        <<abstract>>
+        -channel DeliveryChannel
+        +send(recipient)
+    }
+    Notification <|-- OrderNotification
+    Notification <|-- SecurityNotification
+    Notification --> DeliveryChannel : bridge
+    DeliveryChannel <|.. EmailChannel
+    DeliveryChannel <|.. SmsChannel
+    DeliveryChannel <|.. PushChannel
+```
+
 ## TypeScript Implementation
 
 Notification types form the abstraction hierarchy; `DeliveryChannel` implementations form a separate hierarchy connected by composition.
@@ -35,4 +56,3 @@ Only one dimension varies or simple function composition communicates the design
 ## Trade-Offs
 
 New notification types and channels are added independently, though the extra indirection requires clear naming.
-

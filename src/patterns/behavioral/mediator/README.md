@@ -14,6 +14,26 @@ Let every form component know and call every component affected by its changes.
 
 Mediator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class CheckoutMediator {
+        <<interface>>
+        +notify(sender, event)
+    }
+    CheckoutMediator <|.. CheckoutCoordinator
+    CheckoutComponent --> CheckoutMediator
+    CheckoutComponent <|-- AddressForm
+    CheckoutComponent <|-- ShippingSelector
+    CheckoutComponent <|-- PaymentForm
+    CheckoutComponent <|-- OrderSummary
+    CheckoutCoordinator --> AddressForm
+    CheckoutCoordinator --> ShippingSelector
+    CheckoutCoordinator --> PaymentForm
+    CheckoutCoordinator --> OrderSummary
+```
+
 ## TypeScript Implementation
 
 `CheckoutCoordinator` receives component events and coordinates updates; components depend only on the mediator contract.
@@ -35,4 +55,3 @@ Only two components communicate or the mediator starts absorbing their core busi
 ## Trade-Offs
 
 Components remain independent, but the mediator can become complex if its scope is not bounded.
-

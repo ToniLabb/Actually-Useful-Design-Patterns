@@ -14,6 +14,22 @@ Repeat a fetch-loop with cursor state in every consumer.
 
 Iterator separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class PaginatedApi {
+        <<interface>>
+        +fetchPage(cursor) Page
+    }
+    PaginatedApi <|.. InMemoryProductsApi
+    PaginatedApiCollection --> PaginatedApi
+    Client --> PaginatedApiCollection : for...of
+    class PaginatedApiCollection {
+        +Symbol.iterator() Iterator
+    }
+```
+
 ## TypeScript Implementation
 
 `PaginatedApiCollection` implements `Iterable<T>` and its generator fetches pages lazily while exposing individual items.
@@ -35,4 +51,3 @@ Callers need page metadata, parallel requests, or explicit pagination controls.
 ## Trade-Offs
 
 Consumers become simple and pages load lazily, but iteration can hide network cost and failures.
-

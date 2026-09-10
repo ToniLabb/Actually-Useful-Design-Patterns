@@ -14,6 +14,22 @@ Split strings inside repository code and add special cases whenever syntax grows
 
 Interpreter separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class Expression {
+        <<interface>>
+        +interpret(product) boolean
+    }
+    Expression <|.. EqualsExpression
+    Expression <|.. LessThanExpression
+    Expression <|.. AndExpression
+    AndExpression o-- Expression : children
+    QueryParser ..> Expression : builds
+    Client --> QueryParser : filter language
+```
+
 ## TypeScript Implementation
 
 `QueryParser` creates expression objects for equality, comparison, and conjunction; the resulting tree interprets each product.
@@ -35,4 +51,3 @@ The grammar is complex enough for a parser library or only one fixed filter is n
 ## Trade-Offs
 
 The language model is extensible and testable, but parsing, precedence, and error reporting grow quickly.
-

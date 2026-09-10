@@ -14,6 +14,24 @@ Duplicate the full import workflow for every format, allowing validation or pers
 
 Template Method separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class DataImporter {
+        <<abstract>>
+        +import(source) ImportedRecord[]
+        #read(source)
+        #parse(raw)*
+        #validate(records)
+        #transform(record)
+        #persist(records)
+    }
+    DataImporter <|-- CsvImporter
+    DataImporter <|-- JsonImporter
+    Client --> DataImporter : import
+```
+
 ## TypeScript Implementation
 
 `DataImporter.import()` fixes the algorithm skeleton. Subclasses implement parsing and may override controlled steps.
@@ -35,4 +53,3 @@ Steps must be freely reordered or composition would provide more flexibility.
 ## Trade-Offs
 
 The invariant workflow stays consistent, but inheritance couples variants to the template class.
-

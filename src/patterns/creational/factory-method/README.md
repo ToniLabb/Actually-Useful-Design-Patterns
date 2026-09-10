@@ -14,6 +14,30 @@ Keep a `switch` that instantiates an SDK client for each channel inside the noti
 
 Factory Method separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class NotificationProvider {
+        <<interface>>
+        +send(message)
+    }
+    class NotificationService {
+        <<abstract>>
+        #createProvider() NotificationProvider
+        +notify(message)
+    }
+    NotificationService <|-- EmailNotificationService
+    NotificationService <|-- SmsNotificationService
+    NotificationService <|-- SlackNotificationService
+    NotificationProvider <|.. EmailProvider
+    NotificationProvider <|.. SmsProvider
+    NotificationProvider <|.. SlackProvider
+    EmailNotificationService ..> EmailProvider : creates
+    SmsNotificationService ..> SmsProvider : creates
+    SlackNotificationService ..> SlackProvider : creates
+```
+
 ## TypeScript Implementation
 
 `NotificationService` owns validation and the delivery workflow. Its factory method creates a `NotificationProvider`; subclasses choose Email, SMS, or Slack.
@@ -35,4 +59,3 @@ A configuration map or one injected provider is enough and subclasses add no use
 ## Trade-Offs
 
 New providers do not modify the workflow, but each variant adds a provider and creator class.
-

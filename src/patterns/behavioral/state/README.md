@@ -14,6 +14,30 @@ Put a growing `switch(order.status)` in every operation and manually keep transi
 
 State separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class OrderState {
+        <<interface>>
+        +pay(order)
+        +ship(order)
+        +deliver(order)
+        +cancel(order)
+        +refund(order)
+    }
+    Order --> OrderState : current state
+    OrderState <|.. PendingPaymentState
+    OrderState <|.. PaidState
+    OrderState <|.. ShippedState
+    OrderState <|.. DeliveredState
+    OrderState <|.. CancelledState
+    OrderState <|.. RefundedState
+    PendingPaymentState --> PaidState : pay
+    PaidState --> ShippedState : ship
+    ShippedState --> DeliveredState : deliver
+```
+
 ## TypeScript Implementation
 
 `Order` delegates operations to an `OrderState`; concrete states define allowed actions and perform explicit transitions while recording history.
@@ -35,4 +59,3 @@ There are only two simple states with almost no state-specific behavior.
 ## Trade-Offs
 
 Transitions become explicit and local, but more lifecycle states mean more classes and transition tests.
-

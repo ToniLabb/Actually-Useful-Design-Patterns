@@ -14,6 +14,23 @@ Store callbacks with ad hoc metadata or make the worker switch on every job type
 
 Command separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class JobCommand {
+        <<interface>>
+        +type
+        +execute()
+    }
+    JobQueue o-- JobCommand : queued jobs
+    JobCommand <|.. SendEmailCommand
+    JobCommand <|.. GenerateInvoiceCommand
+    SendEmailCommand --> EmailService : receiver
+    GenerateInvoiceCommand --> InvoiceService : receiver
+    Worker --> JobQueue : process
+```
+
 ## TypeScript Implementation
 
 Each `JobCommand` packages a receiver and arguments behind `execute()`. `JobQueue` manages attempts and lifecycle uniformly.
@@ -35,4 +52,3 @@ An immediate function call has no lifecycle requirements.
 ## Trade-Offs
 
 The queue is decoupled from receivers and commands are testable, but durable serialization needs an explicit command payload design.
-

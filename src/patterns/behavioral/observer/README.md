@@ -14,6 +14,19 @@ Call every downstream service directly from the order workflow and edit it whene
 
 Observer separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    EventBus o-- EventHandler : subscriptions
+    Publisher --> EventBus : publish
+    EmailNotifier --> EventBus : subscribes
+    AnalyticsTracker --> EventBus : subscribes
+    InvoiceGenerator --> EventBus : subscribes
+    InventoryUpdater --> EventBus : subscribes
+    ShippingDashboard --> EventBus : subscribes
+```
+
 ## TypeScript Implementation
 
 `EventBus` stores typed subscribers by event type, publishes domain events, supports unsubscribe, and isolates subscriber failures.
@@ -35,4 +48,3 @@ The reactions form one transaction and must succeed or roll back together.
 ## Trade-Offs
 
 Publishers and subscribers evolve independently, but event order, failure handling, and subscription cleanup need explicit policy.
-

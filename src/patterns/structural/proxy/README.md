@@ -14,6 +14,20 @@ Repeat counters and access checks in every endpoint or modify the service for in
 
 Proxy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class ApiService {
+        <<interface>>
+        +request(input) ApiResponse
+    }
+    ApiService <|.. RealApiService
+    ApiService <|.. RateLimitingProxy
+    RateLimitingProxy o-- RealApiService : delegates allowed calls
+    Client --> RateLimitingProxy
+```
+
 ## TypeScript Implementation
 
 `RateLimitingProxy` implements the same `ApiService` contract, tracks a window per client, and delegates allowed requests to `RealApiService`.
@@ -35,4 +49,3 @@ The wrapper merely forwards calls or infrastructure already enforces the policy 
 ## Trade-Offs
 
 The real service stays focused, but proxy state and semantics must match deployment topology.
-

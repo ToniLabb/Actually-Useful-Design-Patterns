@@ -14,6 +14,22 @@ Grow one pricing function with an `if/else` for every campaign and customer segm
 
 Strategy separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class PricingStrategy {
+        <<interface>>
+        +calculate(context) number
+    }
+    PricingEngine --> PricingStrategy : uses
+    PricingStrategy <|.. StandardPricing
+    PricingStrategy <|.. VipPricing
+    PricingStrategy <|.. BlackFridayPricing
+    PricingStrategy <|.. CouponPricing
+    Client --> PricingEngine : selects strategy
+```
+
 ## TypeScript Implementation
 
 Each `PricingStrategy` owns one algorithm. `PricingEngine` validates shared input and switches strategy at runtime.
@@ -35,4 +51,3 @@ There are only one or two tiny branches or a callback is sufficient.
 ## Trade-Offs
 
 Pricing rules are isolated and testable, but selection and compatibility between strategies remain client responsibilities.
-

@@ -14,6 +14,20 @@ Rebuild every document from scratch or mutate one shared template, risking leake
 
 Prototype separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    TemplateRegistry o-- DocumentTemplate : stores prototypes
+    TemplateRegistry ..> DocumentTemplate : clones
+    DocumentTemplate *-- DocumentData
+    class DocumentTemplate {
+        +clone(overrides) DocumentTemplate
+        +setMetadata(key, value)
+        +replaceSection(heading, content)
+    }
+```
+
 ## TypeScript Implementation
 
 `DocumentTemplate.clone()` deep-copies nested sections and metadata. `TemplateRegistry` stores named prototypes and creates independent documents.
@@ -35,4 +49,3 @@ A fresh object is cheap and has little default state.
 ## Trade-Offs
 
 Cloning removes repetitive setup, but deep-copy semantics and mutable fields must be defined carefully.
-

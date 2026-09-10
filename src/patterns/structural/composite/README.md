@@ -14,6 +14,22 @@ Write separate code paths for files and folders, manually walking children in ev
 
 Composite separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class Resource {
+        <<abstract>>
+        +grant(userId, role)
+        +revoke(userId)
+        +list() string[]
+    }
+    Resource <|-- FileResource
+    Resource <|-- FolderResource
+    FolderResource o-- Resource : children
+    Client --> Resource : treats uniformly
+```
+
 ## TypeScript Implementation
 
 `Resource` defines uniform permission operations. `FileResource` is a leaf and `FolderResource` forwards grants and revocations recursively.
@@ -35,4 +51,3 @@ Leaf and container behavior differs substantially or recursive propagation is un
 ## Trade-Offs
 
 Tree-wide operations become simple, but implicit recursion can be expensive and permission inheritance needs clear rules.
-

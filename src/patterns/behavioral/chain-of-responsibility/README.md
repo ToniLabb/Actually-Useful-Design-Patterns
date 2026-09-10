@@ -14,6 +14,25 @@ Build one large request function with nested conditions for every cross-cutting 
 
 Chain of Responsibility separates the part that changes behind a focused object contract. The client works with that abstraction instead of coordinating concrete implementations directly.
 
+## Structure
+
+```mermaid
+classDiagram
+    class Middleware {
+        <<abstract>>
+        -next Middleware
+        +linkWith(next) Middleware
+        +handle(request) HttpResponse
+    }
+    Middleware o--> Middleware : next
+    Middleware <|-- RequestLogger
+    Middleware <|-- RateLimitMiddleware
+    Middleware <|-- AuthenticationMiddleware
+    Middleware <|-- AuthorizationMiddleware
+    Middleware <|-- JsonBodyMiddleware
+    Middleware <|-- ProfileController
+```
+
 ## TypeScript Implementation
 
 Each `Middleware` handles one concern and delegates with `super.handle()`. `linkWith()` assembles the pipeline and short-circuits on errors.
@@ -35,4 +54,3 @@ Every request must follow one short fixed procedure whose control flow is cleare
 ## Trade-Offs
 
 Middleware stays focused and reusable, but ordering dependencies and hidden short-circuits require tests.
-

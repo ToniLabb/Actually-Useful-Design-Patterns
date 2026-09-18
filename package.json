@@ -4,6 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "demo:abstract-factory": "ts-node src/patterns/creational/abstract-factory/index.ts",
     "demo:builder": "ts-node src/patterns/creational/builder/index.ts",
     "demo:factory-method": "ts-node src/patterns/creational/factory-method/index.ts",
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "prettier": "^3.9.8",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
